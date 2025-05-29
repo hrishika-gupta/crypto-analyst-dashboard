@@ -8,6 +8,8 @@ Original file is located at
 """
 
 # ✅ Core Libraries
+# app.py
+
 import os
 import pandas as pd
 import requests
@@ -19,10 +21,11 @@ import streamlit as st
 import google.generativeai as genai
 
 # ✅ Load Gemini API key from Streamlit Cloud secrets or local env
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY") or os.getenv("GEMINI_API_KEY")
 
 # ✅ Configure Gemini API
 genai.configure(api_key=GEMINI_API_KEY)
+
 
 def fetch_live_crypto_data(vs_currency="inr", per_page=50, page=1):
     url = "https://api.coingecko.com/api/v3/coins/markets"
